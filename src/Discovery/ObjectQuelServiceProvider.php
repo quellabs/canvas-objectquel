@@ -2,6 +2,7 @@
 	
 	namespace Quellabs\Canvas\ObjectQuel\Discovery;
 	
+	use Quellabs\Discover\Discover;
 	use Quellabs\ObjectQuel\Configuration;
 	use Quellabs\ObjectQuel\EntityManager;
 	use Quellabs\DependencyInjection\Provider\ServiceProvider;
@@ -77,19 +78,19 @@
 			// Get database configuration from external config file
 			$defaults = $this->getDefaults();
 			$configData = $this->getConfig();
+
+			// Create discovery class for root path determination
+			$discover = new Discover();
 			
 			// Create new configuration instance
 			$config = new Configuration();
 			
 			// Directory containing entity classes
-			if (!empty($configData['entity_paths'])) {
-				$config->setEntityPaths($configData["entity_paths"]);
-			} elseif (!empty($configData['entity_path'])) {
-				$config->setEntityPaths([$configData["entity_path"]]);
-			} else {
-				$config->setEntityPaths([]);
-			}
-			
+			$config->setEntityPaths([
+				'read_only' => $discover->getProjectRoot() . "/vendor/quellabs/canvas/src/Taskmanager/Entities/TaskEntity/",
+				'writable'  => $configData['entity_path'] ?? null
+			]);
+
 			// Directory for generated proxy classes
 			$config->setProxyDir($configData["proxy_path"] ?? $defaults["proxy_path"]  ?? null);
 			

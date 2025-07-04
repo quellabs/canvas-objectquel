@@ -29,17 +29,13 @@
     }
   },
   "require": {
-    "quellabs/objectquel": "dev-feature/multiple-entity-directories"
+    "quellabs/objectquel": "dev-feature/multiple-entity-directories",
+    "quellabs/discover": "^1."
   },
   "autoload": {
     "psr-4": {
       "Quellabs\\Canvas\\ObjectQuel\\": "src/"
     }
-  },
-  "scripts": {
-    "post-autoload-dump": [
-      "php -r \"if(!file_exists('config/database.php')) copy('vendor/quellabs/canvas-objectquel/config/database.php', 'config/database.php');\""
-    ]
   },
   "extra": {
     "discover": {

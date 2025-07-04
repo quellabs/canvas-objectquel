@@ -43,7 +43,7 @@
 				'collation'           => 'utf8mb4_unicode_ci',
 				'migrations_path'     => '',
 				'entity_namespace'    => '',
-				'entity_path'         => '',
+				'entity_path'         => [],
 				'proxy_namespace'     => 'Quellabs\\ObjectQuel\\Proxy\\Runtime',
 				'proxy_path'          => null,
 				'metadata_cache_path' => ''
@@ -82,7 +82,13 @@
 			$config = new Configuration();
 			
 			// Directory containing entity classes
-			$config->setEntityPath($configData["entity_path"] ?? $defaults["entity_path"] ?? '');
+			if (!empty($configData['entity_paths'])) {
+				$config->setEntityPaths($configData["entity_paths"]);
+			} elseif (!empty($configData['entity_path'])) {
+				$config->setEntityPaths([$configData["entity_path"]]);
+			} else {
+				$config->setEntityPaths([]);
+			}
 			
 			// Directory for generated proxy classes
 			$config->setProxyDir($configData["proxy_path"] ?? $defaults["proxy_path"]  ?? null);

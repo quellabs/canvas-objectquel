@@ -86,10 +86,10 @@
 			$config = new Configuration();
 			
 			// Directory containing entity classes
-			$config->setEntityPaths([
-				'read_only' => $discover->getProjectRoot() . "/vendor/quellabs/canvas/src/Taskmanager/Entities/TaskEntity/",
-				'writable'  => $configData['entity_path'] ?? null
-			]);
+			$config->setEntityPath($configData['entity_path']);
+			
+			// Add path to TaskEntity
+			$config->addAdditionalEntityPath($discover->getProjectRoot() . "/vendor/quellabs/canvas/src/Taskmanager/Entities/TaskEntity/");
 
 			// Directory for generated proxy classes
 			$config->setProxyDir($configData["proxy_path"] ?? $defaults["proxy_path"]  ?? null);

@@ -79,18 +79,12 @@
 			$defaults = $this->getDefaults();
 			$configData = $this->getConfig();
 
-			// Create discovery class for root path determination
-			$discover = new Discover();
-			
 			// Create new configuration instance
 			$config = new Configuration();
 			
 			// Directory containing entity classes
 			$config->setEntityPath($configData['entity_path']);
 			
-			// Add path to TaskEntity
-			$config->addAdditionalEntityPath($discover->getProjectRoot() . "/vendor/quellabs/canvas/src/Taskmanager/Entities/TaskEntity/");
-
 			// Directory for generated proxy classes
 			$config->setProxyDir($configData["proxy_path"] ?? $defaults["proxy_path"]  ?? null);
 			
